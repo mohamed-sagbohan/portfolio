@@ -8,196 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    :root {
-      --bg-1: #0f172a;
-      --bg-2: #1e293b;
-      --surface: #0f172a;
-      --surface-strong: #0b1224;
-      --card-bg: #0f172a;
-      --card-border: rgba(255,255,255,0.08);
-      --text: #e2e8f0;
-      --muted: #cbd5e1;
-      --primary: #3b82f6;
-      --nav-bg: rgba(15,23,42,0.7);
-      --nav-border: rgba(255,255,255,0.08);
-    }
-
-    :root[data-theme="light"] {
-      --bg-1: #f8fafc;
-      --bg-2: #e2e8f0;
-      --surface: #ffffff;
-      --surface-strong: #ffffff;
-      --card-bg: #ffffff;
-      --card-border: #e2e8f0;
-      --text: #0f172a;
-      --muted: #475569;
-      --primary: #0ea5e9;
-      --nav-bg: rgba(255,255,255,0.9);
-      --nav-border: rgba(15,23,42,0.08);
-    }
-
-    body {
-      box-sizing: border-box;
-      background: var(--bg-1);
-      color: var(--text);
-      font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
-      transition: background-color 0.35s ease, color 0.35s ease;
-    }
-
-    .gradient-bg {
-      background: radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.12), transparent 32%),
-                  radial-gradient(circle at 80% 0%, rgba(45, 212, 191, 0.12), transparent 34%),
-                  linear-gradient(135deg, var(--bg-1) 0%, var(--bg-2) 100%);
-      position: relative;
-      overflow: hidden;
-      transition: background 0.35s ease;
-    }
-
-    .gradient-bg::before {
-      content: '';
-      position: absolute;
-      inset: -30%;
-      background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 60%);
-      animation: rotate 24s linear infinite;
-      z-index: 0;
-    }
-
-    @keyframes rotate {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-
-    .animate-hero { animation: fadeInUp 0.9s ease-out forwards; }
-    .floating { animation: float 3s ease-in-out infinite; }
-
-    .pill { transition: transform 0.25s ease, box-shadow 0.25s ease; background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text); }
-    .pill span { color: var(--text); }
-    .pill:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(0,0,0,0.12); }
-
-    .project-card { transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; }
-    .project-card:hover { transform: translateY(-8px); box-shadow: 0 22px 55px rgba(0,0,0,0.12); border-color: rgba(59,130,246,0.35); }
-
-    .social { position: relative; transition: transform 0.25s ease; }
-    .social:hover { transform: translateY(-3px) scale(1.05); }
-    .social::after {
-      content: '';
-      position: absolute;
-      inset: -6px;
-      border-radius: 9999px;
-      box-shadow: 0 0 22px rgba(59,130,246,0.45);
-      opacity: 0;
-      transition: opacity 0.25s ease;
-    }
-    .social:hover::after { opacity: 1; }
-
-    /* Theme surfaces */
-    .theme-section { background: var(--surface); color: var(--text); transition: background-color 0.35s ease, color 0.35s ease; }
-    .theme-section-strong { background: var(--surface-strong); color: var(--text); transition: background-color 0.35s ease, color 0.35s ease; }
-    .theme-card { background: var(--card-bg) !important; border-color: var(--card-border) !important; color: var(--text); }
-    .theme-card p, .theme-card span, .theme-card a { color: var(--muted); }
-    .theme-card h3 { color: var(--text); }
-    .theme-card li { color: var(--muted); }
-    .theme-section p, .theme-section span, .theme-section li, .theme-section a { color: var(--muted); }
-    .theme-section h2, .theme-section h3 { color: var(--text); }
-    /* Light mode hero adjustments */
-    :root[data-theme="light"] #hero h1 { color: #0f172a; }
-    :root[data-theme="light"] #hero p { color: #475569; }
-    :root[data-theme="light"] #hero .cta { background: var(--primary); color: white; }
-    :root[data-theme="light"] .floating { color: #0f172a; border-color: rgba(15,23,42,0.15) !important; background: rgba(15,23,42,0.08) !important; }
-    :root[data-theme="light"] #hero .inline-flex.gap-3 .pill { color: #0f172a; }
-    
-    /* Light mode buttons */
-    :root[data-theme="light"] #hero .border { border-color: rgba(15,23,42,0.2) !important; color: #0f172a; }
-    :root[data-theme="light"] #hero .border:hover { background: rgba(15,23,42,0.05); }
-    
-    /* Light mode contact section */
-    :root[data-theme="light"] #contact { background: #f8fafc !important; }
-    :root[data-theme="light"] #contact h2 { color: #0f172a; }
-    :root[data-theme="light"] #contact p { color: #475569; }
-    :root[data-theme="light"] #contact a { color: #475569; }
-    :root[data-theme="light"] #contact a.bg-white { color: #0f172a; background: white; }
-    :root[data-theme="light"] #contact .border { border-color: rgba(15,23,42,0.2) !important; }
-    :root[data-theme="light"] #contact .border:hover { background: rgba(15,23,42,0.08); color: #0f172a; }
-    
-    /* Light mode skills badges */
-    :root[data-theme="light"] .pill { background: #f1f5f9 !important; color: #0f172a !important; border-color: #e2e8f0 !important; }
-    :root[data-theme="light"] .pill span { color: #0f172a; }
-    
-    /* Light mode project cards text */
-    :root[data-theme="light"] .project-card h3 { color: #0f172a; }
-    :root[data-theme="light"] .project-card p { color: #475569; }
-    :root[data-theme="light"] .project-card a { color: #0ea5e9; }
-    :root[data-theme="light"] .project-card a:hover { color: #0284c7; }
-    
-    /* Dark mode skill badges - reduced contrast for better readability */
-    :root[data-theme="dark"] .bg-emerald-100 { background: rgba(16, 185, 129, 0.2) !important; color: #6ee7b7 !important; }
-    :root[data-theme="dark"] .bg-amber-100 { background: rgba(217, 119, 6, 0.2) !important; color: #fcd34d !important; }
-    :root[data-theme="dark"] .text-emerald-700 { color: #6ee7b7 !important; }
-    :root[data-theme="dark"] .text-amber-700 { color: #fcd34d !important; }
-    
-    /* Dark mode project badges - reduced contrast for better readability */
-    :root[data-theme="dark"] .bg-sky-100 { background: rgba(14, 165, 233, 0.2) !important; color: #7dd3fc !important; }
-    :root[data-theme="dark"] .text-sky-700 { color: #7dd3fc !important; }
-    :root[data-theme="dark"] .bg-slate-100 { background: rgba(100, 116, 139, 0.25) !important; color: #cbd5e1 !important; }
-    :root[data-theme="dark"] .text-slate-500 { color: #cbd5e1 !important; }
-
-    /* Navbar overrides for theme */
-    nav.theme-nav { background: var(--nav-bg) !important; border-color: var(--nav-border) !important; transition: background-color 0.35s ease, border-color 0.35s ease, color 0.35s ease; }
-    nav.theme-nav a { color: var(--text); }
-    nav.theme-nav a:hover { color: var(--primary); }
-
-    /* Toggle button */
-    .theme-toggle { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 9999px; border: 1px solid var(--card-border); background: transparent; color: var(--text); font-weight: 600; transition: transform 0.2s ease, background-color 0.3s ease, border-color 0.3s ease; }
-    .theme-toggle:hover { transform: translateY(-1px); background: var(--card-bg); }
-    .theme-toggle svg { width: 18px; height: 18px; }
-
-    /* Menu mobile styles */
-    #mobileMenuToggle { 
-      background: var(--card-bg); 
-      border: 1px solid var(--card-border); 
-      color: var(--text);
-      transition: transform 0.2s ease, background-color 0.3s ease;
-    }
-    #mobileMenuToggle:hover { 
-      transform: scale(1.05); 
-      background: rgba(59,130,246,0.1);
-    }
-
-    #navMenu.hidden {
-      display: none;
-    }
-
-    #navMenu {
-      display: flex;
-      background: var(--surface) !important;
-      border-color: var(--card-border) !important;
-    }
-
-    @media (min-width: 768px) {
-      #navMenu {
-        position: relative !important;
-        top: 0 !important;
-        left: auto !important;
-        right: auto !important;
-        flex-direction: row;
-        background: transparent !important;
-        border: none !important;
-        padding: 0 !important;
-        gap: 0;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body class="h-full bg-slate-950 text-slate-100">
   <nav class="theme-nav fixed top-0 inset-x-0 z-50 backdrop-blur-lg border-b">
@@ -217,15 +28,15 @@
         <a href="#skills" class="hover:text-sky-300 transition-colors">Compétences</a>
         <a href="#projects" class="hover:text-sky-300 transition-colors">Projets</a>
         <a href="#contact" class="hover:text-sky-300 transition-colors">Contact</a>
-        <button id="themeToggle" type="button" class="theme-toggle" aria-label="Basculer le thème">
-          <span id="themeIcon" aria-hidden="true">🌙</span>
-          <span id="themeLabel">Mode sombre</span>
+        <button id="themeToggle-mobile" type="button" class="theme-toggle" aria-label="Basculer le thème">
+          <span id="themeIcon-mobile" aria-hidden="true">🌙</span>
+          <span id="themeLabel-mobile">Mode sombre</span>
         </button>
         <div class="flex gap-3">
-          <a class="social" href="https://github.com/mohamed-sagbohan" target="_blank" rel="noreferrer" aria-label="GitHub">
+          <a class="social" href="https://github.com/mohamed-sagbohan" target="_blank" rel="noreferrer noopener" aria-label="GitHub">
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12c0 5.303 3.438 9.8 8.207 11.387.6.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.547-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23a11.5 11.5 0 0 1 3.003-.404 11.5 11.5 0 0 1 3.006.404c2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.565 21.8 24 17.303 24 12 24 5.373 18.627 0 12 0z"/></svg>
           </a>
-          <a class="social" href="https://www.linkedin.com/in/Mohamed SAGBOHAN" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+          <a class="social" href="https://www.linkedin.com/in/Mohamed SAGBOHAN" target="_blank" rel="noreferrer noopener" aria-label="LinkedIn">
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
           </a>
         </div>
@@ -237,15 +48,15 @@
         <a href="#skills" class="hover:text-sky-300 transition-colors">Compétences</a>
         <a href="#projects" class="hover:text-sky-300 transition-colors">Projets</a>
         <a href="#contact" class="hover:text-sky-300 transition-colors">Contact</a>
-        <button id="themeToggle" type="button" class="theme-toggle" aria-label="Basculer le thème">
-          <span id="themeIcon" aria-hidden="true">🌙</span>
-          <span id="themeLabel">Mode sombre</span>
+        <button id="themeToggle-desktop" type="button" class="theme-toggle" aria-label="Basculer le thème">
+          <span id="themeIcon-desktop" aria-hidden="true">🌙</span>
+          <span id="themeLabel-desktop">Mode sombre</span>
         </button>
         <div class="flex gap-3">
-          <a class="social" href="https://github.com/mohamed-sagbohan" target="_blank" rel="noreferrer" aria-label="GitHub">
+          <a class="social" href="https://github.com/mohamed-sagbohan" target="_blank" rel="noreferrer noopener" aria-label="GitHub">
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12c0 5.303 3.438 9.8 8.207 11.387.6.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.547-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23a11.5 11.5 0 0 1 3.003-.404 11.5 11.5 0 0 1 3.006.404c2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.565 21.8 24 17.303 24 12 24 5.373 18.627 0 12 0z"/></svg>
           </a>
-          <a class="social" href="https://www.linkedin.com/in/Mohamed SAGBOHAN" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+          <a class="social" href="https://www.linkedin.com/in/Mohamed SAGBOHAN" target="_blank" rel="noreferrer noopener" aria-label="LinkedIn">
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
           </a>
         </div>
@@ -260,16 +71,17 @@
           <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
           Disponible pour une opportunité
         </div>
-        <h1 class="text-4xl md:text-6xl font-bold leading-tight text-white">Développeur Full-Stack Junior</h1>
+        <h1 class="text-4xl md:text-6xl font-bold leading-tight text-white">Développeur Full-Stack</h1>
         <p class="text-lg md:text-xl text-slate-200 max-w-2xl mx-auto">Je conçois des expériences web modernes, rapides et accessibles. Passionné par React, Django, Laravel, PHP et les interfaces qui donnent envie d'explorer.</p>
         <div class="flex flex-wrap items-center justify-center gap-4">
           <a href="#projects" class="cta inline-flex items-center justify-center px-6 py-3 rounded-full text-base font-semibold bg-sky-500 text-white shadow-lg shadow-sky-500/30 hover:-translate-y-1 transition-transform">Voir mes projets</a>
           <a href="mailto:contact@exemple.fr" class="inline-flex items-center justify-center px-6 py-3 rounded-full text-base font-semibold border border-white/30 text-white hover:bg-white/10 transition-colors">Me contacter</a>
+          <a href="CV%20SAGBOHAN%20Mohamed.pdf.pdf.pdf" download="CV SAGBOHAN Mohamed.pdf" class="inline-flex items-center justify-center px-6 py-3 rounded-full text-base font-semibold border border-white/30 text-white hover:bg-white/10 transition-colors">Télécharger mon CV</a>
         </div>
       </div>
     </section>
 
-    <section id="about" class="theme-section py-16 px-6">
+    <section id="about" class="theme-section py-16 px-6 reveal">
       <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-10 items-center">
         <div class="space-y-4">
           <p class="text-sm uppercase tracking-[0.2em] text-sky-500">À propos</p>
@@ -296,7 +108,7 @@
       </div>
     </section>
 
-    <section id="skills" class="theme-section py-16 px-6">
+    <section id="skills" class="theme-section py-16 px-6 reveal">
       <div class="max-w-5xl mx-auto">
         <div class="flex items-center justify-between mb-8">
           <div>
@@ -319,17 +131,17 @@
       </div>
     </section>
 
-    <section id="projects" class="theme-section py-16 px-6">
+    <section id="projects" class="theme-section py-16 px-6 reveal">
       <div class="max-w-6xl mx-auto">
         <div class="flex items-center justify-between mb-10">
           <div>
             <p class="text-sm uppercase tracking-[0.2em] text-sky-500"><strong>Projets</strong></p>
             <h2 class="text-3xl font-semibold"><strong>Quelques réalisations récentes</strong></h2>
           </div>
-          <a href="https://github.com/mohamed-sagbohan" target="_blank" rel="noreferrer" class="text-sky-600 hover:text-sky-700 font-semibold">Tout voir sur GitHub</a>
+          <a href="https://github.com/mohamed-sagbohan" target="_blank" rel="noreferrer noopener" class="text-sky-600 hover:text-sky-700 font-semibold">Tout voir sur GitHub</a>
         </div>
         <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          <article class="project-card theme-card rounded-3xl border p-6 flex flex-col gap-4">
+          <article class="project-card theme-card rounded-3xl border p-6 flex flex-col gap-4 reveal">
             <div class="flex items-center justify-between">
               <h3 class="text-xl font-semibold text-slate-900"><strong>Plateforme de Location de Véhicules</strong></h3>
             </div>
@@ -340,11 +152,11 @@
               <span class="px-3 py-1 rounded-full bg-slate-100"><strong>MySQL</strong></span>
             </div>
             <div class="flex items-center justify-between text-sm font-semibold">
-              <a href="https://carrental.liveblog365.com/?i=1" target="_blank" rel="noreferrer" class="text-slate-500 hover:text-slate-700"><strong>Voir le site</strong></a>
+              <a href="https://carrental.liveblog365.com/?i=1" target="_blank" rel="noreferrer noopener" class="text-slate-500 hover:text-slate-700"><strong>Voir le site</strong></a>
             </div>
           </article>
 
-          <article class="project-card theme-card rounded-3xl border p-6 flex flex-col gap-4">
+          <article class="project-card theme-card rounded-3xl border p-6 flex flex-col gap-4 reveal">
             <div class="flex items-center justify-between">
               <h3 class="text-xl font-semibold text-slate-900"><strong>Gym Management System</strong></h3>
             </div>
@@ -355,11 +167,11 @@
               <span class="px-3 py-1 rounded-full bg-slate-100"><strong>JS</strong></span>
             </div>
             <div class="flex items-center justify-between text-sm font-semibold">
-              <a href="https://gymspace.unaux.com/" target="_blank" rel="noreferrer" class="text-slate-500 hover:text-slate-700"><strong>Voir le site</strong></a>
+              <a href="https://gymspace.unaux.com/" target="_blank" rel="noreferrer noopener" class="text-slate-500 hover:text-slate-700"><strong>Voir le site</strong></a>
             </div>
           </article>
 
-          <article class="project-card theme-card rounded-3xl border p-6 flex flex-col gap-4">
+          <article class="project-card theme-card rounded-3xl border p-6 flex flex-col gap-4 reveal">
             <div class="flex items-center justify-between">
               <h3 class="text-xl font-semibold text-slate-900"><strong>Application Météo</strong></h3>
               <span class="text-xs px-3 py-1 rounded-full bg-sky-100 text-sky-700"><strong>API • Charts</strong></span>
@@ -378,7 +190,7 @@
       </div>
     </section>
 
-    <section id="contact" class="gradient-bg text-white py-20 px-6">
+    <section id="contact" class="gradient-bg text-white py-20 px-6 reveal">
       <div class="max-w-6xl mx-auto grid md:grid-cols-[1.1fr_1fr] gap-10 items-center relative z-10">
         <div class="space-y-6 text-center md:text-left">
           <p class="text-sm uppercase tracking-[0.2em] text-sky-100">Contact</p>
@@ -386,22 +198,19 @@
           <p class="text-lg text-slate-100">Une idée, un produit à accélérer ou besoin de renfort sur votre équipe ? Écrivez-moi, appelez-moi sur WhatsApp ou connectons-nous sur LinkedIn.</p>
           <div class="flex flex-col sm:flex-row sm:flex-wrap gap-3 justify-center md:justify-start">
             <a href="mailto:sagbohanmohamed9@gmail.com" class="inline-flex items-center justify-center px-6 py-3 rounded-full text-base font-semibold bg-white text-slate-900 hover:-translate-y-1 transition-transform">sagbohanmohamed9@gmail.com</a>
-            <a href="https://wa.me/2290190162631?text=Bonjour%20Mohamed,%20je%20viens%20de%20votre%20portfolio" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center px-6 py-3 rounded-full text-base font-semibold border border-white/60 text-white hover:bg-white/10 transition-colors">WhatsApp</a>
-            <a href="https://www.linkedin.com/in/Mohamed SAGBOHAN" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center px-6 py-3 rounded-full text-base font-semibold border border-white/60 text-white hover:bg-white/10 transition-colors">LinkedIn</a>
+            <a href="https://wa.me/2290190162631?text=Bonjour%20Mohamed,%20je%20viens%20de%20votre%20portfolio" target="_blank" rel="noreferrer noopener" class="inline-flex items-center justify-center px-6 py-3 rounded-full text-base font-semibold border border-white/60 text-white hover:bg-white/10 transition-colors">WhatsApp</a>
+            <a href="https://www.linkedin.com/in/Mohamed SAGBOHAN" target="_blank" rel="noreferrer noopener" class="inline-flex items-center justify-center px-6 py-3 rounded-full text-base font-semibold border border-white/60 text-white hover:bg-white/10 transition-colors">LinkedIn</a>
           </div>
           <p class="text-sm text-slate-200">Basé à Cotonou, Bénin · Disponible remote et déplacement</p>
         </div>
 
         <div class="bg-white/10 border border-white/10 rounded-3xl overflow-hidden shadow-2xl backdrop-blur">
           <iframe
+            class="map-embed"
             title="Localisation"
             src="https://www.google.com/maps?q=Cotonou+Akpakpa+Midombo&output=embed"
-            width="100%"
-            height="320"
-            style="border:0;"
             allowfullscreen=""
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"></iframe>
+            loading="lazy"></iframe>
         </div>
       </div>
     </section>
@@ -429,9 +238,9 @@
     // Thème clair/sombre
     (function() {
       const root = document.documentElement;
-      const toggleBtns = document.querySelectorAll('#themeToggle');
-      const themeLabels = document.querySelectorAll('#themeLabel');
-      const themeIcons = document.querySelectorAll('#themeIcon');
+      const toggleBtns = document.querySelectorAll('[id^="themeToggle-"]');
+      const themeLabels = document.querySelectorAll('[id^="themeLabel-"]');
+      const themeIcons = document.querySelectorAll('[id^="themeIcon-"]');
 
       const applyTheme = (mode) => {
         root.setAttribute('data-theme', mode);
@@ -440,7 +249,7 @@
           themeLabels.forEach(label => label.textContent = 'Mode clair');
           themeIcons.forEach(icon => icon.textContent = '☀️');
         } else {
-          themeLabels.forEach(label => label.textContent = 'Mode sombre');
+          themeLabels.forEach(label => label.textContent = ' mode sombre');
           themeIcons.forEach(icon => icon.textContent = '🌙');
         }
       };
@@ -455,6 +264,28 @@
           applyTheme(current);
         });
       });
+    })();
+
+    // Reveal sections
+    (function() {
+      const revealEls = document.querySelectorAll('.reveal');
+      if (!revealEls.length) return;
+
+      if (!('IntersectionObserver' in window)) {
+        revealEls.forEach(el => el.classList.add('is-visible'));
+        return;
+      }
+
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -10% 0px' });
+
+      revealEls.forEach(el => observer.observe(el));
     })();
   </script>
 </body>
